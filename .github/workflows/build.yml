@@ -22,16 +22,26 @@ jobs:
       - name: Setup Android SDK
         uses: android-actions/setup-android@v3
 
+      # CRITICAL: Accept licenses BEFORE installing anything
       - name: Accept Android SDK licenses
-        run: yes | sdkmanager --licenses
+        run: |
+          yes | $ANDROID_HOME/cmdline-tools/latest/bin/sdkmanager --licenses
+        env:
+          ANDROID_HOME: ${{ env.ANDROID_HOME }}
 
-      - name: Install SDK platform 33 and build-tools 33.0.0
-        run: sdkmanager "platforms;android-33" "build-tools;33.0.0"
+      # Now install exactly what we need
+      - name: Install SDK platform and build-tools
+        run: |
+          $ANDROID_HOME/cmdline-tools/latest/bin/sdkmanager "platforms;android-33" "build-tools;33.0.0"
+        env:
+          ANDROID_HOME: ${{ env.ANDROID_HOME }}
 
       - name: Setup Gradle
         uses: gradle/actions/setup-gradle@v3
+        with:
+          cache-disabled: true
 
-      - name: Build APK with stacktrace
+      - name: Build APK
         run: gradle assembleDebug --no-daemon --stacktrace
 
       - name: Upload APK
