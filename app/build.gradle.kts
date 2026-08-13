@@ -2,6 +2,10 @@ plugins {
     id("com.android.application")
     id("org.jetbrains.kotlin.android")
 }
+repositories {
+    google()
+    mavenCentral()
+}
 
 android {
     namespace = "com.app.localtiktok"
