@@ -3,8 +3,6 @@ name: Build The Collectives APK
 on:
   push:
     branches: [ "main", "master" ]
-  pull_request:
-    branches: [ "main", "master" ]
   workflow_dispatch:
 
 jobs:
@@ -22,14 +20,20 @@ jobs:
           distribution: 'temurin'
           java-version: '17'
 
-      - name: Setup Gradle
-        uses: gradle/actions/setup-gradle@v3
+      # This sets up the Android SDK and accepts all licenses automatically
+      - name: Setup Android SDK
+        uses: android-actions/setup-android@v3
 
-      # Debug: list files to ensure structure is correct
-      - name: List repository files
+      # Explicitly install the exact platform and build tools needed for compileSdk = 34
+      - name: Install SDK Platform 34
         run: |
-          ls -la
-          ls -la app/
+          sdkmanager "platforms;android-34" "build-tools;34.0.0"
+        env:
+          ANDROID_HOME: ${{ env.ANDROID_HOME }}
+          ANDROID_SDK_ROOT: ${{ env.ANDROID_SDK_ROOT }}
+
+      - name: Setup Gradle Engine
+        uses: gradle/actions/setup-gradle@v3
 
       - name: Build Debug APK
         run: gradle assembleDebug --no-daemon
