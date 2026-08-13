@@ -1,6 +1,3 @@
-// App-level build.gradle.kts
-// Location: /app/build.gradle.kts (inside the "app" folder)
-
 plugins {
     id("com.android.application")
     id("org.jetbrains.kotlin.android")
@@ -8,12 +5,12 @@ plugins {
 
 android {
     namespace = "com.app.localtiktok"
-    compileSdk = 34
+    compileSdk = 33   // FIXED: Pre-installed on GitHub runners
 
     defaultConfig {
         applicationId = "com.app.localtiktok"
         minSdk = 24
-        targetSdk = 34
+        targetSdk = 33   // FIXED: Match compileSdk
         versionCode = 1
         versionName = "1.0"
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
