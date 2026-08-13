@@ -2,23 +2,19 @@ plugins {
     id("com.android.application")
     id("org.jetbrains.kotlin.android")
 }
-repositories {
-    google()
-    mavenCentral()
-}
 
 android {
     namespace = "com.app.localtiktok"
     compileSdk = 34   // FIXED: Pre-installed on GitHub runners
 
-    defaultConfig {
-        applicationId = "com.app.localtiktok"
-        minSdk = 24
-        targetSdk = 34   // FIXED: Match compileSdk
-        versionCode = 1
-        versionName = "1.0"
-        testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
-        vectorDrawables { useSupportLibrary = true }
+    defaultConfig {applicationId = "com.app.localtiktok"
+    minSdk = 24
+    targetSdk = 34
+    versionCode = 1
+    versionName = "1.0"
+    testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
+    vectorDrawables { useSupportLibrary = true }
+    multiDexEnabled = true   // ← add this line
     }
 
     buildTypes {
