@@ -22,11 +22,17 @@ jobs:
           distribution: 'temurin'
           java-version: '17'
 
-      - name: Setup Gradle Engine
+      - name: Setup Gradle
         uses: gradle/actions/setup-gradle@v3
 
+      # Debug: list files to ensure structure is correct
+      - name: List repository files
+        run: |
+          ls -la
+          ls -la app/
+
       - name: Build Debug APK
-        run: ./gradlew assembleDebug --no-daemon
+        run: gradle assembleDebug --no-daemon
 
       - name: Upload Compiled APK
         uses: actions/upload-artifact@v4
