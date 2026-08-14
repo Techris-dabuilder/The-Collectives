@@ -6,5 +6,13 @@ pluginManagement {
     }
 }
 
+dependencyResolutionManagement {
+    repositoriesMode.set(RepositoriesMode.FAIL_ON_PROJECT_REPOSITORIES)
+    repositories {
+        google()
+        mavenCentral()
+    }
+}
+
 rootProject.name = "TheCollectives"
 include(":app")
