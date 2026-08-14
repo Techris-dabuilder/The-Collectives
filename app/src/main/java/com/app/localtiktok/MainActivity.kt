@@ -1,5 +1,6 @@
 package com.app.localtiktok
 
+import androidx.compose.foundation.ExperimentalFoundationApi
 import android.annotation.SuppressLint
 import android.app.Activity
 import android.content.ContentUris
@@ -227,6 +228,8 @@ fun AppleHelloSplash(onFinished: () -> Unit) {
 // FIX: deleteVideo() now handles API 28 / 29 / 30+ correctly.
 //      Original: contentResolver.delete() silently fails on any phone running Android 10+ (API 29+).
 
+@Composable
+@OptIn(ExperimentalFoundationApi::class)
 @Composable
 fun VideoFeedScreen() {
     val context = LocalContext.current
